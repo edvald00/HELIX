@@ -411,3 +411,36 @@ h3{font-size:22px}
   object-fit: cover;
   border-radius: 50%;
 }
+
+@media (max-width: 768px) {
+  /* Garante que a área de ações (botões) não suma totalmente */
+  .header .actions {
+    display: flex; 
+    gap: 8px;
+    margin-right: 10px;
+  }
+
+  /* Se o botão de login sumiu, pode ser que ele esteja com "display: none" no mobile. 
+     Vamos forçar ele a aparecer, mas talvez diminuir o texto para caber. */
+  .btn-login {
+    display: flex !important;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  /* Oculta apenas o texto "Entrar" em telas MUITO pequenas se necessário, 
+     mantendo apenas o ícone, para não quebrar o layout */
+  @media (max-width: 480px) {
+    .btn-login {
+       padding: 8px;
+    }
+    .btn-login span { /* Caso o texto esteja dentro de um span */
+       display: none;
+    }
+    /* Ou você pode esconder o botão "Nossa Equipe" no mobile 
+       e deixar ele apenas dentro do menu hambúrguer para salvar espaço */
+    .header .actions .btn-primary {
+       display: none; 
+    }
+  }
+}
