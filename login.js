@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, sendPasswordResetEmail, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBnh0xrXL4DsMNx1PuS8xzqcxsy_cnnrWM",
@@ -22,17 +22,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// Capturar o retorno do Google (Redirect) para ver se deu erro
-getRedirectResult(auth)
-  .then((result) => {
-    if (result) {
-      console.log("Login com Google concluído!");
-    }
-  })
-  .catch((error) => {
-    console.error(error);
-    alert("Erro no retorno do Google: " + error.message);
-  });
+// (Não precisamos mais do getRedirectResult pois usaremos Popup)
 
 // ============ FORM: LOGIN ============
 const form = document.getElementById('loginForm');
@@ -56,8 +46,9 @@ form?.addEventListener('submit', (e) => {
 // Login com Google
 const btnGoogle = document.getElementById('btnGoogle');
 btnGoogle?.addEventListener('click', () => {
-  signInWithRedirect(auth, provider)
+  signInWithPopup(auth, provider)
     .catch((error) => {
+      console.error(error);
       alert("Erro com Google: " + error.message);
     });
 });
@@ -65,8 +56,9 @@ btnGoogle?.addEventListener('click', () => {
 // Google no painel de cadastro (mesma lógica)
 const btnGoogleSignup = document.getElementById('btnGoogleSignup');
 btnGoogleSignup?.addEventListener('click', () => {
-  signInWithRedirect(auth, provider)
+  signInWithPopup(auth, provider)
     .catch((error) => {
+      console.error(error);
       alert("Erro com Google: " + error.message);
     });
 });
