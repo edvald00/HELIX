@@ -16,8 +16,6 @@
   box-shadow:
     0 30px 80px -30px rgba(0,174,239,.35),
     0 10px 40px -20px rgba(124,58,237,.25);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
 }
 
 /* ----- LADO ESQUERDO ----- */
