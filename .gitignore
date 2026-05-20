@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+helix-app/node_modules/
+helix-app/.next/
+helix-app/out/
+helix-app/build/
+helix-app/.env
