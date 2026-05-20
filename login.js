@@ -34,7 +34,7 @@ getRedirectResult(auth)
     alert("Erro no retorno do Google: " + error.message);
   });
 
-// Submit Formulário de Email/Senha (Login)
+// ============ FORM: LOGIN ============
 const form = document.getElementById('loginForm');
 form?.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -62,22 +62,35 @@ btnGoogle?.addEventListener('click', () => {
     });
 });
 
-// Criar Conta com Email/Senha (Simples, na mesma tela)
-const btnRegister = document.getElementById('btnRegister');
-btnRegister?.addEventListener('click', (e) => {
+// Google no painel de cadastro (mesma lógica)
+const btnGoogleSignup = document.getElementById('btnGoogleSignup');
+btnGoogleSignup?.addEventListener('click', () => {
+  signInWithRedirect(auth, provider)
+    .catch((error) => {
+      alert("Erro com Google: " + error.message);
+    });
+});
+
+// ============ FORM: CADASTRO ============
+const registerForm = document.getElementById('registerForm');
+registerForm?.addEventListener('submit', (e) => {
   e.preventDefault();
-  const email = form.email.value;
-  const password = form.password.value;
-  if(!email || !password) {
-    alert("Preencha o email e senha no formulário acima e depois clique em 'Criar conta'.");
+  const email = registerForm.email.value;
+  const password = registerForm.password.value;
+  const btn = registerForm.querySelector('button[type="submit"]');
+
+  if (!email || !password) {
+    alert("Preencha o email e senha para criar a conta.");
     return;
   }
-  
+
+  btn.textContent = "Criando...";
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       alert("Conta criada com sucesso! Redirecionando...");
     })
     .catch((error) => {
+      btn.textContent = "Criar conta";
       alert("Erro ao criar conta: " + error.message);
     });
 });
@@ -91,7 +104,7 @@ btnForgot?.addEventListener('click', (e) => {
     alert("Digite seu email no campo acima para recuperar a senha.");
     return;
   }
-  
+
   sendPasswordResetEmail(auth, email)
     .then(() => {
       alert("E-mail de recuperação enviado para: " + email);
@@ -112,4 +125,5 @@ document.querySelectorAll('[data-toggle]').forEach(btn => {
   });
 });
 
-document.getElementById('year').textContent = new Date().getFullYear();
+// Slider toggle e footer year são tratados no script inline do HTML
+// (garante funcionamento mesmo se este módulo Firebase falhar ao carregar).
