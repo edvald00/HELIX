@@ -100,7 +100,7 @@ body::after{
   display:inline-block;padding:6px 14px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.18em;
   background:rgba(0,174,239,.1);color:var(--brand);border:1px solid rgba(0,174,239,.3);
 }
-h1,h2,h3,h4{letter-spacing:-.02em;line-height:1.1;font-weight:800}
+h1,h2,h3,h4{letter-spacing:-.04em;line-height:1.1;font-weight:800}
 h1{font-size:clamp(36px,6vw,72px)}
 h2{font-size:clamp(28px,4vw,48px)}
 h3{font-size:22px}
@@ -256,9 +256,24 @@ h3{font-size:22px}
 .lightbox .close{position:absolute;top:24px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center}
 
 /* ============ FOOTER ============ */
-.footer{border-top:1px solid var(--border);margin-top:60px;padding:40px 24px;color:var(--muted);font-size:14px}
-.footer .row{max-width:var(--max);margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
-.footer b{color:#fff}
+.footer{border-top:1px solid var(--border);margin-top:60px;padding:80px 24px 40px;color:var(--muted);font-size:14px;background:var(--bg-2)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:var(--max);margin:0 auto}
+@media (max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:30px}}
+@media (max-width:600px){.footer-grid{grid-template-columns:1fr}}
+.footer-col .brand{font-size:24px;margin-bottom:16px}
+.footer-col p{max-width:280px;line-height:1.5;margin-bottom:20px}
+.footer-col h4{color:#fff;font-size:15px;margin-bottom:18px;letter-spacing:0}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col a{transition:color .2s;display:inline-block}
+.footer-col a:hover{color:var(--brand);transform:translateX(4px)}
+.footer-bottom{max-width:var(--max);margin:60px auto 0;padding-top:24px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+.footer-bottom b{color:#fff}
+
+/* ============ EFEITOS EXTRAS ============ */
+.noise-overlay{position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");opacity:0.03}
+.btn-shimmer{position:relative;overflow:hidden}
+.btn-shimmer::after{content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transform:skewX(-20deg);animation:shimmer 3.5s infinite}
+@keyframes shimmer{0%{left:-100%}20%{left:200%}100%{left:200%}}
 
 /* ============ ANIMATIONS ============ */
 @keyframes spinSlow{to{transform:rotate(360deg)}}
@@ -281,7 +296,9 @@ h3{font-size:22px}
 .reveal.delay-6{transition-delay:.48s}
 
 /* scroll cue */
-.scroll-cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:6px;animation:floaty 1.8s ease-in-out infinite}
+.scroll-cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:8px;animation:floaty 2.5s ease-in-out infinite}
+.scroll-cue .mouse-wheel{animation:scrollWheel 1.5s infinite}
+@keyframes scrollWheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(6px);opacity:0}}
 
 
 /* ============ DIGITAL TWIN WINDOW ============ */
@@ -294,6 +311,13 @@ h3{font-size:22px}
   box-shadow:0 0 60px rgba(0,174,239,.12);
   position:relative;
 }
+.showcase-window::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.06) 0%,transparent 40%);pointer-events:none;
+}
+.showcase-window::before{
+  content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 45%,rgba(255,255,255,0.04) 50%,transparent 55%);transform:rotate(45deg);pointer-events:none;z-index:20;animation:glare 7s linear infinite;
+}
+@keyframes glare{0%{transform:translateY(-100%) rotate(45deg)}100%{transform:translateY(100%) rotate(45deg)}}
 .window-topbar{display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.05)}
 .window-controls{display:flex;gap:8px}
 .window-controls span{width:10px;height:10px;border-radius:50%;display:block}

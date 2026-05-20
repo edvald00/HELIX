@@ -5,8 +5,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Home · Hélix — Digital Twin AI</title>
-  <meta name="description"
-    content="Hélix é a plataforma de Digital Twin com IA que cria réplicas inteligentes da operação em tempo real." />
+  <meta name="description" content="Hélix é a plataforma de Digital Twin com IA que cria réplicas inteligentes da operação em tempo real." />
+  <meta property="og:title" content="Hélix — Digital Twin AI" />
+  <meta property="og:description" content="Plataforma de Digital Twin com IA que cria réplicas inteligentes da operação em tempo real." />
+  <meta property="og:image" content="https://helix.digitaltwin.ai/og-image.jpg" />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -20,7 +23,7 @@
 </head>
 
 <body>
-
+  <div class="noise-overlay"></div>
   <div class="topbar">Hélix · Plataforma de Digital Twin AI · Inteligência Operacional em Tempo Real</div>
   <header class="header">
     <nav class="nav">
@@ -68,7 +71,7 @@
           <p class="lead">Hélix conecta dados físicos e digitais em um gêmeo virtual com IA — para simular, prever e
             otimizar processos antes que aconteçam no mundo real.</p>
           <div class="hero-cta">
-            <a href="#sobre" class="btn btn-primary">Conheça o Hélix <svg width="14" height="14" viewBox="0 0 24 24"
+            <a href="#sobre" class="btn btn-primary btn-shimmer">Conheça o Hélix <svg width="14" height="14" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 5v14M19 12l-7 7-7-7" />
               </svg></a>
@@ -126,10 +129,13 @@
           </div>
         </div>
       </div>
-      <a href="#sobre" class="scroll-cue">Role para baixo <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2">
-          <path d="M12 5v14M19 12l-7 7-7-7" />
-        </svg></a>
+      <a href="#sobre" class="scroll-cue">
+        <svg class="mouse-icon" width="22" height="34" viewBox="0 0 24 34" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="30" rx="10" />
+          <path class="mouse-wheel" d="M12 8v6" stroke-linecap="round" />
+        </svg>
+        <span>Role para baixo</span>
+      </a>
     </section>
 
     <section id="sobre" class="section">
@@ -243,36 +249,81 @@
         <div class="team-avatars">
           <button class="team-avatar active" data-name="Edvaldo Silva" data-role="Analista de Requisitos"
             data-desc="Atua com análise de requisitos funcionais e não-funcionais, realizando a especificação técnica e modelagem de sistemas.">
-            <img src="imagens/edvaldosilva.jpeg" alt="Edvaldo Silva">
+            <img loading="lazy" src="imagens/edvaldosilva.jpeg" alt="Edvaldo Silva">
           </button>
 
           <button class="team-avatar" data-name="Vittor Gabriel" data-role="Gerente de Projetos"
             data-desc="Assegura que o projeto permaneça no escopo, custo e prazo acordados, coordenando partes interessadas e recursos.">
-            <img src="imagens/vittorgab.jpeg" alt="Vittor Gabriel">
+            <img loading="lazy" src="imagens/vittorgab.jpeg" alt="Vittor Gabriel">
           </button>
 
           <button class="team-avatar" data-name="Pabllo Hyan" data-role="Engenheiro de Software"
             data-desc="Responsável por desenvolver soluções digitais e arquitetar o design estrutural do sistema Hélix.">
-            <img src="imagens/IMG_8479.jpg" alt="Pablo Hyan">
+            <img loading="lazy" src="imagens/IMG_8479.jpg" alt="Pablo Hyan">
           </button>
 
           <button class="team-avatar" data-name="Flávio Barros" data-role="Scrum Master"
             data-desc="Garante que o Time Scrum siga valores e práticas ágeis, protegendo a equipe e otimizando as entregas.">
-            <img src="imagens/flavio.jpeg" alt="Flávio Barros">
+            <img loading="lazy" src="imagens/flavio.jpeg" alt="Flávio Barros">
           </button>
 
           <button class="team-avatar" data-name="Gabriel Manoel" data-role="Engenheiro de Requisitos"
             data-desc="Oferece controles e padrões para exigências claras, garantindo qualidade e produtividade no desenvolvimento.">
-            <img src="imagens/gabrielmonoel.jpeg" alt="Gabriel Manoel">
+            <img loading="lazy" src="imagens/gabrielmonoel.jpeg" alt="Gabriel Manoel">
           </button>
         </div>
       </div>
     </div>
   </section>
   <footer class="footer">
-    <div class="row">
-      <p><b>Hélix</b> · Digital Twin AI · Projeto Integrador Acadêmico</p>
-      <p>© 2026 Equipe Hélix · Inteligência que reflete a realidade</p>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="brand">
+          <svg class="logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:30px;height:30px;margin-bottom:12px;filter:drop-shadow(0 0 12px rgba(0,174,239,.55))">
+            <defs>
+              <linearGradient id="lgF" x1="0" y1="0" x2="40" x2="40">
+                <stop offset="0%" stop-color="#00AEEF" />
+                <stop offset="100%" stop-color="#7C3AED" />
+              </linearGradient>
+            </defs>
+            <g class="helix-loop" stroke="url(#lgF)" stroke-width="2.6" stroke-linecap="round" fill="none">
+              <path d="M20 4 C 30 12, 30 18, 20 20 C 10 22, 10 28, 20 36" />
+              <path d="M20 4 C 10 12, 10 18, 20 20 C 30 22, 30 28, 20 36" />
+            </g>
+            <circle cx="20" cy="20" r="2" fill="#00AEEF" />
+          </svg>
+          <br/><b>Hé</b>lix
+        </div>
+        <p>A plataforma definitiva de Digital Twin com IA. Refletindo o mundo físico em inteligência operacional acessível e em tempo real.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <ul>
+          <li><a href="#sobre">O que é Hélix</a></li>
+          <li><a href="fotos.html">Showcase</a></li>
+          <li><a href="documentos.html">Documentação</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="historia.html">Nossa História</a></li>
+          <li><a href="integrantes.html">Equipe</a></li>
+          <li><a href="missao-valores.html">Missão e Valores</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacidade</a></li>
+          <li><a href="#">Termos de Uso</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 <b>Hélix</b> · Inteligência que reflete a realidade.</p>
+      <p>Projeto Integrador Acadêmico</p>
     </div>
   </footer>
   <div class="lightbox" data-close-lightbox>
