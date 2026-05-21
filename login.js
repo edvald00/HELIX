@@ -19,7 +19,7 @@ const provider = new GoogleAuthProvider();
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // Redireciona direto para o painel de cards do seu novo projeto Next.js
-    window.location.href = "https://helix3d.vercel.app/room/dashboard";
+    window.location.href = "https://helix3d.vercel.app";
   }
 });
 
