@@ -18,8 +18,8 @@ const provider = new GoogleAuthProvider();
 // Se já estiver logado, vai direto pro Hub Central (Next.js)
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Redireciona para o painel de produção na Vercel
-    window.location.href = "https://helix-dt.vercel.app/";
+    // Redireciona direto para o painel de cards do seu novo projeto Next.js
+    window.location.href = "https://helix3d.vercel.app/room/dashboard";
   }
 });
 
