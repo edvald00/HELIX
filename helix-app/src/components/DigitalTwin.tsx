@@ -276,7 +276,7 @@ export default function DigitalTwin({ lightOn, acOn }: DigitalTwinProps) {
       const parsed = JSON.parse(savedAc);
       if (Array.isArray(parsed)) {
         // Migração de dados antigos para o novo formato com Normal
-        setAcData({ point: parsed, normal: [0, 0, 1] });
+        setAcData({ point: parsed as [number, number, number], normal: [0, 0, 1] });
       } else {
         setAcData(parsed);
       }
