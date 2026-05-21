@@ -18,8 +18,8 @@ const provider = new GoogleAuthProvider();
 // Se já estiver logado, vai direto pro Hub Central (Next.js)
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Altere para "http://localhost:3000" para testar no seu PC, ou mantenha o da Vercel para Produção
-    window.location.href = "https://helix-dt.vercel.app/";
+    // Redireciona para o servidor local do Next.js
+    window.location.href = "http://localhost:3000/";
   }
 });
 
