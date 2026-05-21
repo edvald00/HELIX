@@ -15,10 +15,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// Se já estiver logado, vai direto pro dashboard
+// Se já estiver logado, vai direto pro Hub Central (Next.js)
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    window.location.href = "dashboard.html";
+    // Altere para "http://localhost:3000" para testar no seu PC, ou mantenha o da Vercel para Produção
+    window.location.href = "https://helix-dt.vercel.app/";
   }
 });
 
