@@ -1,7 +1,7 @@
 // --- AUTENTICAÇÃO SIMULADA ---
 const MOCK_USER = {
   email: 'admin@helix.com',
-  password: '123'
+  password: 'admin123'
 };
 
 // ============ FORM: LOGIN ============
@@ -29,7 +29,7 @@ form?.addEventListener('submit', (e) => {
     } else {
       btn.textContent = "Entrar";
       btn.disabled = false;
-      alert("Credenciais inválidas. Tente admin@helix.com e 123");
+      alert("Credenciais inválidas. Tente admin@helix.com e admin123");
     }
   }, 800);
 });
