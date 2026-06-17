@@ -94,3 +94,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+/* Fix: Download via JavaScript */
+document.addEventListener('click', (e) => {
+  const downloadBtn = e.target.closest('[data-download]');
+  if (downloadBtn) {
+    e.preventDefault();
+    const fileUrl = downloadBtn.getAttribute('data-download');
+    
+    const originalText = downloadBtn.innerHTML;
+    downloadBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Baixando...';
+    downloadBtn.style.pointerEvents = 'none';
+
+    fetch(fileUrl)
+      .then(response => {
+        if (!response.ok) throw new Error("Arquivo não encontrado");
+        return response.blob();
+      })
+      .then(blob => {
+        const blobUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = blobUrl;
+        a.download = fileUrl.split('/').pop();
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(a);
+      })
+      .catch(err => {
+        console.error("Erro no download:", err);
+        alert("Erro ao tentar baixar o arquivo. Verifique se ele está na pasta.");
+      })
+      .finally(() => {
+        downloadBtn.innerHTML = originalText;
+        downloadBtn.style.pointerEvents = 'auto';
+      });
+  }
+});
