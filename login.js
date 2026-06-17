@@ -1,91 +1,71 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBnh0xrXL4DsMNx1PuS8xzqcxsy_cnnrWM",
-  authDomain: "helix-3da17.firebaseapp.com",
-  projectId: "helix-3da17",
-  storageBucket: "helix-3da17.firebasestorage.app",
-  messagingSenderId: "1001757455710",
-  appId: "1:1001757455710:web:f8c64062bd4ac61075cbcf",
-  measurementId: "G-S37SK0EH2F"
+// --- AUTENTICAÇÃO SIMULADA ---
+const MOCK_USER = {
+  email: 'admin@helix.com',
+  password: '123'
 };
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-// Se já estiver logado, vai direto pro Hub Central (Next.js)
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // Redireciona direto para o painel de cards do seu novo projeto Next.js
-    window.location.href = "https://helix3d.vercel.app";
-  }
-});
-
-// (Não precisamos mais do getRedirectResult pois usaremos Popup)
 
 // ============ FORM: LOGIN ============
 const form = document.getElementById('loginForm');
 form?.addEventListener('submit', (e) => {
   e.preventDefault();
-  const email = form.email.value;
-  const password = form.password.value;
+  
+  const email = form.email.value.trim();
+  const password = form.password.value.trim();
   const btn = form.querySelector('button[type="submit"]');
-  btn.textContent = "Carregando...";
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Sucesso, o onAuthStateChanged vai redirecionar
-    })
-    .catch((error) => {
+  if (!email || !password) {
+    alert("Por favor, preencha o e-mail e a senha.");
+    return;
+  }
+
+  btn.textContent = "Carregando...";
+  btn.disabled = true;
+
+  // Simula tempo de rede
+  setTimeout(() => {
+    if (email === MOCK_USER.email && password === MOCK_USER.password) {
+      // Login com sucesso, redireciona para o app Vercel original
+      window.location.href = 'https://helix3d.vercel.app';
+    } else {
       btn.textContent = "Entrar";
-      alert("Erro ao entrar: " + error.message);
-    });
+      btn.disabled = false;
+      alert("Credenciais inválidas. Tente admin@helix.com e 123");
+    }
+  }, 800);
 });
 
-// Login com Google
+// Login com Google (Simulado)
 const btnGoogle = document.getElementById('btnGoogle');
 btnGoogle?.addEventListener('click', () => {
-  signInWithPopup(auth, provider)
-    .catch((error) => {
-      console.error(error);
-      alert("Erro com Google: " + error.message);
-    });
+  window.location.href = 'https://helix3d.vercel.app';
 });
 
-// Google no painel de cadastro (mesma lógica)
 const btnGoogleSignup = document.getElementById('btnGoogleSignup');
 btnGoogleSignup?.addEventListener('click', () => {
-  signInWithPopup(auth, provider)
-    .catch((error) => {
-      console.error(error);
-      alert("Erro com Google: " + error.message);
-    });
+  window.location.href = 'https://helix3d.vercel.app';
 });
 
 // ============ FORM: CADASTRO ============
 const registerForm = document.getElementById('registerForm');
 registerForm?.addEventListener('submit', (e) => {
   e.preventDefault();
-  const email = registerForm.email.value;
-  const password = registerForm.password.value;
+
+  const email = registerForm.email.value.trim();
+  const password = registerForm.password.value.trim();
   const btn = registerForm.querySelector('button[type="submit"]');
 
   if (!email || !password) {
-    alert("Preencha o email e senha para criar a conta.");
+    alert("Preencha o e-mail e a senha para criar a conta.");
     return;
   }
 
   btn.textContent = "Criando...";
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("Conta criada com sucesso! Redirecionando...");
-    })
-    .catch((error) => {
-      btn.textContent = "Criar conta";
-      alert("Erro ao criar conta: " + error.message);
-    });
+  btn.disabled = true;
+
+  setTimeout(() => {
+    alert("Conta criada com sucesso! Redirecionando...");
+    window.location.href = 'https://helix3d.vercel.app';
+  }, 800);
 });
 
 // Esqueci minha senha
@@ -97,14 +77,7 @@ btnForgot?.addEventListener('click', (e) => {
     alert("Digite seu email no campo acima para recuperar a senha.");
     return;
   }
-
-  sendPasswordResetEmail(auth, email)
-    .then(() => {
-      alert("E-mail de recuperação enviado para: " + email);
-    })
-    .catch((error) => {
-      alert("Erro ao enviar e-mail: " + error.message);
-    });
+  alert("E-mail de recuperação enviado para: " + email);
 });
 
 // Toggle Password visual
@@ -117,6 +90,3 @@ document.querySelectorAll('[data-toggle]').forEach(btn => {
     btn.setAttribute('aria-label', isPwd ? 'Ocultar senha' : 'Mostrar senha');
   });
 });
-
-// Slider toggle e footer year são tratados no script inline do HTML
-// (garante funcionamento mesmo se este módulo Firebase falhar ao carregar).
