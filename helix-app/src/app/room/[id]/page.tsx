@@ -3,10 +3,13 @@
 import { useState } from "react";
 import DigitalTwin from "@/components/DigitalTwin";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 export default function RoomDashboard() {
   const params = useParams();
+  const searchParams = useSearchParams();
+  const userName = searchParams.get('user') || "usuario@hotel.com";
+  const returnUrl = searchParams.get('returnUrl') || "/";
   const roomId = params.id as string;
   
   const roomName = roomId === "suite-presidencial" ? "Suíte Presidencial" : 
@@ -40,8 +43,8 @@ export default function RoomDashboard() {
           </Link>
           
           <div className="flex items-center">
-            <span className="text-[#94A3B8] text-[14px] mr-[16px] hidden sm:block">usuario@hotel.com</span>
-            <Link href="/" className="inline-flex items-center gap-[8px] px-[18px] py-[10px] rounded-[10px] text-[14px] font-[600] border border-[#00AEEF] text-[#00AEEF] hover:bg-[#00AEEF]/10 hover:shadow-[0_0_40px_rgba(0,174,239,0.35)] transition-all">
+            <span className="text-[#94A3B8] text-[14px] mr-[16px] hidden sm:block">{userName}</span>
+            <Link href={`/?user=${encodeURIComponent(userName)}&returnUrl=${encodeURIComponent(returnUrl)}`} className="inline-flex items-center gap-[8px] px-[18px] py-[10px] rounded-[10px] text-[14px] font-[600] border border-[#00AEEF] text-[#00AEEF] hover:bg-[#00AEEF]/10 hover:shadow-[0_0_40px_rgba(0,174,239,0.35)] transition-all">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

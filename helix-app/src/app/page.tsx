@@ -1,7 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function HubCentral() {
+export default async function HubCentral({ searchParams }: any) {
+  const sp = await searchParams;
+  const userName = sp?.user || "usuario@hotel.com";
+  const returnUrl = sp?.returnUrl || "/";
+
   const rooms = [
     {
       id: "suite-presidencial",
@@ -52,8 +56,8 @@ export default function HubCentral() {
           </Link>
           
           <div className="flex items-center">
-            <span className="text-[#94A3B8] text-[14px] mr-[16px] hidden sm:block">usuario@hotel.com</span>
-            <Link href="/" className="inline-flex items-center gap-[8px] px-[18px] py-[10px] rounded-[10px] text-[14px] font-[600] border border-[#00AEEF] text-[#00AEEF] hover:bg-[#00AEEF]/10 hover:shadow-[0_0_40px_rgba(0,174,239,0.35)] transition-all">
+            <span className="text-[#94A3B8] text-[14px] mr-[16px] hidden sm:block">{userName}</span>
+            <Link href={returnUrl} className="inline-flex items-center gap-[8px] px-[18px] py-[10px] rounded-[10px] text-[14px] font-[600] border border-[#00AEEF] text-[#00AEEF] hover:bg-[#00AEEF]/10 hover:shadow-[0_0_40px_rgba(0,174,239,0.35)] transition-all">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                 <polyline points="16 17 21 12 16 7"></polyline>
@@ -76,7 +80,7 @@ export default function HubCentral() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {rooms.map((room) => (
             <Link 
-              href={`/room/${room.id}`} 
+              href={`/room/${room.id}?user=${encodeURIComponent(userName)}&returnUrl=${encodeURIComponent(returnUrl)}`} 
               key={room.id}
               className={`group relative h-80 rounded-2xl overflow-hidden border ${room.border} flex flex-col justify-end p-6 transition-all hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,174,239,0.15)] cursor-pointer bg-slate-900`}
             >

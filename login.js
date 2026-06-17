@@ -24,8 +24,8 @@ form?.addEventListener('submit', (e) => {
   // Simula tempo de rede
   setTimeout(() => {
     if (email === MOCK_USER.email && password === MOCK_USER.password) {
-      // Login com sucesso, redireciona para o app Vercel original
-      window.location.href = 'https://helix3d.vercel.app';
+      const returnUrl = encodeURIComponent(window.location.href);
+      window.location.href = `https://helix3d.vercel.app?user=${encodeURIComponent(email)}&returnUrl=${returnUrl}`;
     } else {
       btn.textContent = "Entrar";
       btn.disabled = false;
