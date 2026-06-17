@@ -44,7 +44,6 @@
         <div class="divider"><span>ou continue com email</span></div>
 
         <form class="auth-fields" id="loginForm" novalidate>
-          <div id="loginErrorMsg" style="display: none; color: #ff4d4f; font-size: 14px; margin-bottom: 12px; padding: 10px; background: rgba(255,77,79,0.1); border: 1px solid rgba(255,77,79,0.2); border-radius: 6px;"></div>
           <label class="field">
             <span>Email</span>
             <input type="email" name="email" placeholder="voce@empresa.com" required autocomplete="email"/>
@@ -101,7 +100,6 @@
         <div class="divider"><span>ou cadastre com email</span></div>
 
         <form class="auth-fields" id="registerForm" novalidate>
-          <div id="registerErrorMsg" style="display: none; color: #ff4d4f; font-size: 14px; margin-bottom: 12px; padding: 10px; background: rgba(255,77,79,0.1); border: 1px solid rgba(255,77,79,0.2); border-radius: 6px;"></div>
           <label class="field">
             <span>Email</span>
             <input type="email" name="email" placeholder="voce@empresa.com" required autocomplete="email"/>
@@ -246,6 +244,6 @@
     var yAlt = document.getElementById('yearAlt'); if(yAlt) yAlt.textContent = y;
   })();
 </script>
-<script src="login.js"></script>
+<script type="module" src="login.js"></script>
 </body>
 </html>

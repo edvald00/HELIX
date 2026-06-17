@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portal de Gêmeos Digitais · Hélix</title>
+  <title>Painel 3D · Hélix — Digital Twin AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -34,78 +34,41 @@
     }
     @media (max-width: 600px) {
       .dashboard-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .canvas-container { min-height: 400px; }
     }
-
-    /* Estilos dos Cards do Portal */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-      margin-top: 16px;
-    }
-    .twin-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+    .canvas-container {
+      flex: 1;
+      min-height: 600px;
+      border: 1px dashed rgba(0, 174, 239, 0.4);
       border-radius: var(--radius);
-      padding: 24px;
+      background: linear-gradient(180deg, rgba(15,23,42,.4), rgba(2,6,23,.6));
       display: flex;
       flex-direction: column;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .twin-card:hover {
-      border-color: var(--brand);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-    }
-    .twin-card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--brand), #7C3AED);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .twin-card:hover::before {
-      opacity: 1;
-    }
-    .twin-icon {
-      width: 48px;
-      height: 48px;
-      background: rgba(0, 174, 239, 0.1);
-      border-radius: 12px;
-      display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+    }
+    .canvas-container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0, 174, 239, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .canvas-msg {
+      text-align: center;
+      z-index: 2;
+      animation: floaty 3s ease-in-out infinite;
+    }
+    .canvas-msg svg {
+      width: 56px;
+      height: 56px;
       color: var(--brand);
       margin-bottom: 16px;
+      filter: drop-shadow(0 0 12px rgba(0, 174, 239, 0.5));
     }
-    .twin-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 6px 12px;
-      border-radius: 100px;
-      margin-top: auto;
-      margin-bottom: 20px;
-      width: fit-content;
-    }
-    .status-ok { background: rgba(34, 197, 94, 0.1); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.2); }
-    .status-warning { background: rgba(234, 179, 8, 0.1); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.2); }
-    .status-danger { background: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-    .status-ok .status-dot { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
-    .status-warning .status-dot { background: #facc15; box-shadow: 0 0 8px #facc15; }
-    .status-danger .status-dot { background: #f87171; box-shadow: 0 0 8px #f87171; }
   </style>
 </head>
 
@@ -146,82 +109,59 @@
   <main class="dashboard-main">
     <div class="dashboard-header reveal in">
       <div>
-        <span class="eyebrow">SELEÇÃO DE AMBIENTE</span>
-        <h1 style="font-size: 32px; margin-top: 12px;">Seus Gêmeos Digitais</h1>
+        <span class="eyebrow">AMBIENTE SEGURO</span>
+        <h1 style="font-size: 32px; margin-top: 12px;">Visualizador 3D</h1>
       </div>
       <div>
-        <button class="btn btn-primary btn-shimmer">+ Novo Gêmeo</button>
+        <button class="btn btn-primary btn-shimmer">Sincronizar Gêmeo Digital</button>
       </div>
     </div>
     
-    <div class="cards-grid reveal delay-2 in">
-      
-      <!-- Card 1 -->
-      <div class="twin-card">
-        <div class="twin-icon">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        </div>
-        <h3 style="margin-bottom: 8px;">Fábrica São Paulo</h3>
-        <p class="muted" style="font-size: 14px; margin-bottom: 24px; line-height: 1.5;">Linha de montagem principal com 4 robôs ativos e sensores de temperatura IoT conectados em tempo real.</p>
-        
-        <div class="twin-status status-ok">
-          <span class="status-dot"></span> Operando Normalmente
-        </div>
-        
-        <a href="http://localhost:3000" class="btn btn-ghost" style="width: 100%; justify-content: center;">Acessar Módulo →</a>
+    <div class="canvas-container reveal delay-2 in">
+      <div class="canvas-msg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+        <h3>Área do Modelo 3D</h3>
+        <p class="muted" style="margin-top:8px">O seu código Spline ou Three.js será renderizado aqui dentro.</p>
       </div>
-
-      <!-- Card 2 -->
-      <div class="twin-card">
-        <div class="twin-icon">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-        </div>
-        <h3 style="margin-bottom: 8px;">Plataforma Offshore</h3>
-        <p class="muted" style="font-size: 14px; margin-bottom: 24px; line-height: 1.5;">Monitoramento de pressão e fluxo de extração em águas profundas. Previsão de manutenção para bombas.</p>
-        
-        <div class="twin-status status-warning">
-          <span class="status-dot"></span> Alerta de Pressão
-        </div>
-        
-        <a href="http://localhost:3000" class="btn btn-ghost" style="width: 100%; justify-content: center;">Acessar Módulo →</a>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="twin-card">
-        <div class="twin-icon">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-        </div>
-        <h3 style="margin-bottom: 8px;">Usina Solar - Lote C</h3>
-        <p class="muted" style="font-size: 14px; margin-bottom: 24px; line-height: 1.5;">Sistema de captação e armazenamento de energia solar com bancos de baterias interligados.</p>
-        
-        <div class="twin-status status-danger">
-          <span class="status-dot"></span> Em Manutenção
-        </div>
-        
-        <a href="http://localhost:3000" class="btn btn-ghost" style="width: 100%; justify-content: center;">Acessar Módulo →</a>
-      </div>
-
     </div>
   </main>
   
   <script src="script.js"></script>
-  <script>
-    // --- AUTENTICAÇÃO SIMULADA (PORTAL) ---
-    // Verifica se está logado no localStorage
-    if (localStorage.getItem('helix_auth') !== 'true') {
-      window.location.href = "login.html";
-    } else {
-      const email = localStorage.getItem('helix_user_email') || 'usuario@helix.com';
-      const el = document.getElementById('userEmailDisplay');
-      if (el) el.textContent = email;
-    }
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
-    // Ação de Logout
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnh0xrXL4DsMNx1PuS8xzqcxsy_cnnrWM",
+      authDomain: "helix-3da17.firebaseapp.com",
+      projectId: "helix-3da17",
+      storageBucket: "helix-3da17.firebasestorage.app",
+      messagingSenderId: "1001757455710",
+      appId: "1:1001757455710:web:f8c64062bd4ac61075cbcf",
+      measurementId: "G-S37SK0EH2F"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        const el = document.getElementById('userEmailDisplay');
+        if (el) el.textContent = user.email;
+      }
+    });
+
     document.getElementById('btnLogout')?.addEventListener('click', (e) => {
       e.preventDefault();
-      localStorage.removeItem('helix_auth');
-      localStorage.removeItem('helix_user_email');
-      window.location.href = "index.html"; // ou login.html
+      signOut(auth).then(() => {
+        window.location.href = "index.html";
+      });
     });
   </script>
 </body>
