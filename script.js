@@ -40,6 +40,15 @@ document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
 // gallery lightbox
 document.querySelectorAll('[data-thumb]').forEach(t => {
   t.addEventListener('click', () => {
+    const bgUrl = t.getAttribute('data-image');
+    const lightboxBox = document.querySelector('.lightbox .box');
+    if (lightboxBox) {
+      if (bgUrl) {
+        lightboxBox.innerHTML = `<img src="${bgUrl}" style="width:100%;height:100%;object-fit:contain;border-radius:var(--radius)">`;
+      } else {
+        lightboxBox.innerHTML = `<svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>`;
+      }
+    }
     document.querySelector('.lightbox')?.classList.add('open');
   });
 });
