@@ -39,7 +39,7 @@ document.addEventListener('keydown', (e) => {
 // Live "consumption" tick
 const kpi = document.querySelector('.kpi-value');
 if (kpi) {
-  let base = 12847;
+  let base = 197;
   setInterval(() => {
     base += Math.floor((Math.random() - 0.4) * 3);
     kpi.firstChild.textContent = base.toLocaleString('pt-BR') + ' ';
