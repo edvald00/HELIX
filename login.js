@@ -25,7 +25,7 @@ form?.addEventListener('submit', (e) => {
   setTimeout(() => {
     if (email === MOCK_USER.email && password === MOCK_USER.password) {
       const returnUrl = encodeURIComponent(window.location.href);
-      window.location.href = `https://helix3d.vercel.app?user=${encodeURIComponent(email)}&returnUrl=${returnUrl}`;
+      window.location.href = `servicos.html?user=${encodeURIComponent(email)}`;
     } else {
       btn.textContent = "Entrar";
       btn.disabled = false;
@@ -37,12 +37,12 @@ form?.addEventListener('submit', (e) => {
 // Login com Google (Simulado)
 const btnGoogle = document.getElementById('btnGoogle');
 btnGoogle?.addEventListener('click', () => {
-  window.location.href = 'https://helix3d.vercel.app';
+  window.location.href = 'servicos.html';
 });
 
 const btnGoogleSignup = document.getElementById('btnGoogleSignup');
 btnGoogleSignup?.addEventListener('click', () => {
-  window.location.href = 'https://helix3d.vercel.app';
+  window.location.href = 'servicos.html';
 });
 
 // ============ FORM: CADASTRO ============
@@ -64,7 +64,7 @@ registerForm?.addEventListener('submit', (e) => {
 
   setTimeout(() => {
     alert("Conta criada com sucesso! Redirecionando...");
-    window.location.href = 'https://helix3d.vercel.app';
+    window.location.href = 'servicos.html';
   }, 800);
 });
 
