@@ -25,7 +25,7 @@ form?.addEventListener('submit', (e) => {
   setTimeout(() => {
     if (email === MOCK_USER.email && password === MOCK_USER.password) {
       const returnUrl = encodeURIComponent(window.location.href);
-      window.location.href = `serviço/dashboard.html?user=${encodeURIComponent(email)}&returnUrl=${returnUrl}`;
+      window.location.href = `servico/dashboard.html?user=${encodeURIComponent(email)}&returnUrl=${returnUrl}`;
     } else {
       btn.textContent = "Entrar";
       btn.disabled = false;
@@ -37,12 +37,12 @@ form?.addEventListener('submit', (e) => {
 // Login com Google (Simulado)
 const btnGoogle = document.getElementById('btnGoogle');
 btnGoogle?.addEventListener('click', () => {
-  window.location.href = 'serviço/dashboard.html';
+  window.location.href = 'servico/dashboard.html';
 });
 
 const btnGoogleSignup = document.getElementById('btnGoogleSignup');
 btnGoogleSignup?.addEventListener('click', () => {
-  window.location.href = 'serviço/dashboard.html';
+  window.location.href = 'servico/dashboard.html';
 });
 
 // ============ FORM: CADASTRO ============
@@ -64,7 +64,7 @@ registerForm?.addEventListener('submit', (e) => {
 
   setTimeout(() => {
     alert("Conta criada com sucesso! Redirecionando...");
-    window.location.href = 'serviço/dashboard.html';
+    window.location.href = 'servico/dashboard.html';
   }, 800);
 });
 
