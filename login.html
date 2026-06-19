@@ -219,25 +219,7 @@
 </main>
 
 <script src="script.js"></script>
-<script>
-  (function () {
-    const card = document.getElementById('authCard');
-    if (!card) return;
-    const goRegister = (e) => { e?.preventDefault(); card.classList.add('active'); };
-    const goLogin = (e) => { e?.preventDefault(); card.classList.remove('active'); };
-    ['btnGoToRegister', 'btnGoToRegisterMobile'].forEach((id) => {
-      document.getElementById(id)?.addEventListener('click', goRegister);
-    });
-    ['btnGoToLogin', 'btnGoToLoginMobile'].forEach((id) => {
-      document.getElementById(id)?.addEventListener('click', goLogin);
-    });
-    const year = new Date().getFullYear();
-    const yearEl = document.getElementById('year');
-    const yearAlt = document.getElementById('yearAlt');
-    if (yearEl) yearEl.textContent = year;
-    if (yearAlt) yearAlt.textContent = year;
-  })();
-</script>
+<script src="auth.js"></script>
 <script src="login.js"></script>
 </body>
 </html>

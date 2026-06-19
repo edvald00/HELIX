@@ -12,7 +12,7 @@ document.addEventListener('click', (e) => {
     const originalText = downloadBtn.innerHTML;
     downloadBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Baixando...';
     downloadBtn.style.pointerEvents = 'none';
-    fetch(fileUrl)
+    fetch(encodeURI(fileUrl))
       .then(res => {
         if (!res.ok) throw new Error('Arquivo não encontrado');
         return res.blob();

@@ -4,491 +4,117 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Serviços · Painel Hélix</title>
-<meta name="description" content="Conheça os serviços e recursos da Hélix para criar e explorar o modelo digital do seu ativo." />
-
+<meta name="description" content="Painel administrativo Hélix — serviços e recursos da plataforma." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-  :root {
-    /* Cores Premium Dark */
-    --bg:           #06090e;
-    --bg-elevated:  #0b0f17;
-    --surface:      #0f1622;
-    --surface-2:    #151e2e;
-    --border:       #222f47;
-    --border-soft:  #141d2b;
-    --text:         #f0f4f8;
-    --text-muted:   #a0aec0;
-    --text-faint:   #62728a;
-    
-    /* Acentos */
-    --accent:       #38bdf8;
-    --accent-bg:    rgba(56, 189, 248, 0.08);
-    --accent-border: rgba(56, 189, 248, 0.2);
-    --accent-hover:  #7dd3fc;
-
-    /* Recursos / Features (Pills) */
-    --feature-bg:     rgba(139, 92, 246, 0.08);
-    --feature-border: rgba(139, 92, 246, 0.2);
-    --feature-text:   #a78bfa;
-
-    --sidebar-w: 260px;
-    --radius: 12px;
-    --radius-sm: 8px;
-
-    --font-display: 'Space Grotesk', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    
-    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { color-scheme: dark; scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; background: none; border: none; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-  /* ===================== LAYOUT ===================== */
-  .layout { display: flex; min-height: 100vh; }
-
-  /* ---------- Sidebar ---------- */
-  .sidebar {
-    width: var(--sidebar-w);
-    flex-shrink: 0;
-    background: var(--bg-elevated);
-    border-right: 1px solid var(--border-soft);
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    inset: 0 auto 0 0;
-    height: 100vh;
-    z-index: 40;
-    transition: var(--transition);
-  }
-  .sidebar__brand {
-    display: flex; align-items: center; gap: .75rem;
-    padding: 1.75rem 1.5rem 1.5rem;
-  }
-  .sidebar__brand-mark {
-    width: 32px; height: 32px; border-radius: var(--radius-sm);
-    background: var(--accent);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-weight: 700; font-size: 1rem;
-    color: #04060a;
-  }
-  .sidebar__brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; letter-spacing: -.02em; }
-
-  .sidebar__nav { flex: 1; padding: .5rem .75rem; display: flex; flex-direction: column; gap: .25rem; }
-  .sidebar__label {
-    font-size: .65rem; letter-spacing: .12em; font-weight: 700;
-    color: var(--text-faint); text-transform: uppercase;
-    padding: 1.25rem .75rem .5rem;
-  }
-  .sidebar__link {
-    display: flex; align-items: center; gap: .75rem;
-    padding: .7rem .75rem; border-radius: var(--radius-sm);
-    color: var(--text-muted); font-size: .9rem; font-weight: 500;
-    border: 1px solid transparent;
-    transition: var(--transition);
-  }
-  .sidebar__link svg { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.7; transition: var(--transition); }
-  .sidebar__link:hover { background: var(--surface); color: var(--text); }
-  .sidebar__link:hover svg { opacity: 1; }
-  .sidebar__link.is-active {
-    background: var(--surface);
-    border-color: var(--border-soft);
-    color: var(--accent);
-    font-weight: 600;
-  }
-  .sidebar__link.is-active svg { opacity: 1; color: var(--accent); }
-
-  .sidebar__footer {
-    padding: 1.25rem; border-top: 1px solid var(--border-soft);
-    display: flex; align-items: center; gap: .75rem;
-    background: rgba(0,0,0,0.1);
-  }
-  .avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--surface-2); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-size: .85rem; font-weight: 600;
-    color: var(--accent); flex-shrink: 0;
-  }
-  .sidebar__user-info { display: flex; flex-direction: column; }
-  .sidebar__user-name { font-size: .85rem; font-weight: 600; color: var(--text); }
-  .sidebar__user-role { font-size: .75rem; color: var(--text-faint); }
-  .sidebar__logout { margin-left: auto; color: var(--text-faint); transition: var(--transition); padding: .25rem; }
-  .sidebar__logout:hover { color: var(--accent); }
-
-  .sidebar-backdrop {
-    display: none; position: fixed; inset: 0; background: rgba(3, 5, 8, 0.75);
-    backdrop-filter: blur(4px); z-index: 35;
-  }
-
-  /* ---------- Main ---------- */
-  .main { flex: 1; margin-left: var(--sidebar-w); min-width: 0; }
-
-  .topbar {
-    position: sticky; top: 0; z-index: 20;
-    display: flex; align-items: center; gap: 1rem;
-    padding: 1.25rem 2.5rem;
-    background: rgba(6, 9, 14, 0.8);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-soft);
-  }
-  .nav-toggle {
-    display: none; width: 38px; height: 38px; border-radius: var(--radius-sm);
-    background: var(--surface); border: 1px solid var(--border);
-    color: var(--text); align-items: center; justify-content: center;
-    transition: var(--transition);
-  }
-  .nav-toggle:hover { background: var(--surface-2); }
-  .breadcrumb { font-size: .85rem; color: var(--text-muted); }
-  .breadcrumb b { color: var(--text); font-weight: 500; }
-
-  /* ---------- Page Content ---------- */
-  .content { padding: 3rem 2.5rem 5rem; max-width: 1200px; margin: 0 auto; }
-
-  .eyebrow {
-    font-size: .75rem; letter-spacing: .15em; font-weight: 700;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: .75rem;
-  }
-
-  .page-head { margin-bottom: 3.5rem; }
-  .page-head h1 {
-    font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(2rem, 3.5vw, 2.75rem);
-    letter-spacing: -.03em; margin-bottom: .75rem;
-    background: linear-gradient(to bottom right, var(--text) 40%, var(--text-muted));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .page-head p { color: var(--text-muted); font-size: 1.05rem; max-width: 640px; }
-
-  /* ---------- Sections ---------- */
-  .services-section { margin-top: 0; }
-  .features-section { margin-top: 4rem; }
-
-  .section-header {
-    display: flex; align-items: baseline; justify-content: space-between;
-    gap: 1rem; margin-bottom: 1.75rem; padding-bottom: .75rem;
-    border-bottom: 1px solid var(--border-soft);
-  }
-  .section-header h2 {
-    font-family: var(--font-display); font-weight: 600;
-    font-size: 1.35rem; letter-spacing: -.02em;
-  }
-  .section-header p { color: var(--text-faint); font-size: .9rem; }
-
-  /* ---------- Cards Grid ---------- */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.25rem;
-  }
-
-  /* Base Card */
-  .service-card {
-    background: var(--surface);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius);
-    padding: 1.75rem;
-    display: flex; flex-direction: column; gap: 1rem;
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-  }
-  .service-card:hover {
-    border-color: var(--border);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.4);
-  }
-
-  /* Feature Card Variant */
-  .feature-card { background: var(--bg-elevated); }
-  .feature-card:hover { background: var(--surface); }
-
-  .service-card__icon {
-    width: 44px; height: 44px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--accent-bg); border: 1px solid var(--accent-border);
-    flex-shrink: 0; transition: var(--transition);
-  }
-  .feature-card .service-card__icon {
-    background: var(--feature-bg); border-color: var(--feature-border);
-  }
-  .service-card__icon svg { width: 22px; height: 22px; stroke: var(--accent); }
-  .feature-card .service-card__icon svg { stroke: var(--feature-text); }
-
-  .service-card:hover .service-card__icon {
-    transform: scale(1.04);
-  }
-
-  .service-card__title {
-    font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; letter-spacing: -.01em;
-  }
-  .service-card__desc { color: var(--text-muted); font-size: .92rem; line-height: 1.6; }
-
-  /* Badges */
-  .service-card__badge {
-    display: inline-flex; align-items: center; gap: .35rem;
-    font-size: .7rem; font-weight: 700; letter-spacing: .05em;
-    text-transform: uppercase; color: var(--accent);
-    background: var(--accent-bg); border: 1px solid var(--accent-border);
-    border-radius: 6px; padding: .3rem .6rem; width: fit-content;
-  }
-  .service-card__badge--feature {
-    color: var(--feature-text); background: var(--feature-bg); border-color: var(--feature-border);
-  }
-  .service-card__badge svg { width: 12px; height: 12px; stroke: currentColor; flex-shrink: 0; }
-
-  /* ---------- CTA Block ---------- */
-  .cta-block {
-    margin-top: 5rem;
-    background: linear-gradient(135deg, var(--surface) 0%, var(--bg-elevated) 100%);
-    border: 1px solid var(--border-soft); border-radius: var(--radius);
-    padding: 2.5rem;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 2rem; flex-wrap: wrap;
-  }
-  .cta-block__text h3 {
-    font-family: var(--font-display); font-weight: 600; font-size: 1.35rem;
-    margin-bottom: .5rem; letter-spacing: -.02em;
-  }
-  .cta-block__text p { color: var(--text-muted); font-size: .98rem; max-width: 520px; }
-  .cta-block__actions { display: flex; gap: 1rem; flex-shrink: 0; flex-wrap: wrap; }
-
-  /* Buttons */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-    padding: .75rem 1.5rem; border-radius: var(--radius-sm);
-    font-size: .9rem; font-weight: 600; border: 1px solid transparent;
-    transition: var(--transition); white-space: nowrap;
-  }
-  .btn svg { width: 16px; height: 16px; transition: var(--transition); }
-  
-  .btn--primary { background: var(--accent); color: #04060a; }
-  .btn--primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
-  .btn--primary:hover svg { transform: translateX(2px); }
-  
-  .btn--secondary { background: var(--surface-2); color: var(--text); border-color: var(--border); }
-  .btn--secondary:hover { background: var(--border); color: #fff; }
-
-  .content__footer {
-    margin-top: 5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-soft);
-    font-size: .8rem; color: var(--text-faint); display: flex; justify-content: space-between;
-  }
-
-  /* ===================== RESPONSIVE ===================== */
-  @media (max-width: 1024px) {
-    .sidebar { transform: translateX(-100%); }
-    .sidebar.is-open { transform: translateX(0); box-shadow: 20px 0 40px rgba(0,0,0,0.5); }
-    .main { margin-left: 0; }
-    .nav-toggle { display: flex; }
-    .sidebar-backdrop.is-open { display: block; }
-    .content { padding: 2rem 1.5rem 4rem; }
-    .topbar { padding: 1rem 1.5rem; }
-  }
-
-  @media (max-width: 768px) {
-    .section-header { flex-direction: column; align-items: flex-start; gap: .25rem; }
-    .cta-block { flex-direction: column; align-items: stretch; padding: 1.75rem; gap: 1.5rem; }
-    .cta-block__actions { flex-direction: column; }
-    .btn { width: 100%; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css" />
 </head>
-<body>
+<body class="admin-body">
 
-<div class="layout">
-  <div class="sidebar-backdrop" id="backdrop"></div>
+<div class="admin-layout">
+  <div class="admin-backdrop" id="adminBackdrop"></div>
+  <div id="adminSidebarMount"></div>
 
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar__brand">
-      <div class="sidebar__brand-mark">H</div>
-      <span class="sidebar__brand-name">Hélix</span>
-    </div>
-
-    <nav class="sidebar__nav" aria-label="Navegação do painel">
-      <span class="sidebar__label">Geral</span>
-      <a class="sidebar__link" href="#">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-        Painel
-      </a>
-      <a class="sidebar__link" href="#">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></aside>
-      </a>
-      <a class="sidebar__link is-active" href="#" aria-current="page">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-        Serviços
-      </a>
-    </nav>
-
-    <div class="sidebar__footer">
-      <div class="avatar">JP</div>
-      <div class="sidebar__user-info">
-        <div class="sidebar__user-name">João Pereira</div>
-        <div class="sidebar__user-role">Operador · Planta 01</div>
-      </div>
-      <button class="sidebar__logout" title="Sair" aria-label="Sair">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="admin-nav-toggle" id="adminNavToggle" aria-label="Abrir menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
-    </div>
-  </aside>
-
-  <div class="main">
-    <header class="topbar">
-      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
-      <nav class="breadcrumb" aria-label="Breadcrumb">Painel / <b>Serviços</b></nav>
+      <nav class="admin-breadcrumb" aria-label="Breadcrumb">Painel / <b>Serviços</b></nav>
     </header>
 
-    <main class="content">
-      <div class="page-head">
-        <div class="eyebrow">Serviços & Recursos</div>
+    <div class="admin-content">
+      <div class="admin-page-head">
+        <div class="admin-eyebrow">Serviços & Recursos</div>
         <h1>O que a Hélix oferece</h1>
-        <p>Da modelagem inicial ao suporte contínuo — entenda o escopo do nosso trabalho e as ferramentas que colocamos nas suas mãos.</p>
+        <p>Da modelagem inicial ao suporte contínuo — entenda o escopo do nosso trabalho e as ferramentas disponíveis no painel.</p>
       </div>
 
-      <section class="services-section" aria-labelledby="services-heading">
-        <div class="section-header">
+      <section aria-labelledby="services-heading">
+        <div class="admin-section-header">
           <h2 id="services-heading">Serviços prestados pela Hélix</h2>
-          <p>Trabalho consultivo focado no seu ativo</p>
+          <p>Trabalho realizado pela nossa equipe</p>
         </div>
-
-        <div class="cards-grid">
-          <article class="service-card">
-            <div class="service-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            </div>
-            <div>
-              <span class="service-card__badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Primeiro passo
-              </span>
-            </div>
-            <h3 class="service-card__title">Implantação e onboarding</h3>
-            <p class="service-card__desc">Configuramos o ecossistema, integramos bases legadas e treinamos sua equipe para extrair o máximo valor desde o primeiro dia.</p>
+        <div class="admin-cards-grid">
+          <article class="admin-service-card">
+            <div class="admin-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2L2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+            <span class="admin-badge">Primeiro passo</span>
+            <h3 class="admin-card-title">Implantação e onboarding</h3>
+            <p class="admin-card-desc">Configuramos o ambiente, integramos dados existentes e orientamos sua equipe para o uso pleno da plataforma.</p>
           </article>
-
-          <article class="service-card">
-            <div class="service-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-            </div>
-            <h3 class="service-card__title">Modelagem 3D do ativo</h3>
-            <p class="service-card__desc">Construímos a réplica virtual exata do seu ativo físico a partir de plantas estruturais, fotos históricas e medições de campo de alta fidelidade.</p>
+          <article class="admin-service-card">
+            <div class="admin-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="10" height="10" rx="1"/><rect x="11" y="11" width="10" height="10" rx="1"/></svg></div>
+            <h3 class="admin-card-title">Modelagem 3D do ativo</h3>
+            <p class="admin-card-desc">Réplica virtual do ativo a partir de plantas, fotos e medições de campo — pronta para exploração.</p>
           </article>
-
-          <article class="service-card">
-            <div class="service-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-            </div>
-            <h3 class="service-card__title">Documentação técnica</h3>
-            <p class="service-card__desc">Centralizamos e vinculamos manuais complexos, diagramas e registros históricos diretamente às partes e peças de cada modelo digital.</p>
+          <article class="admin-service-card">
+            <div class="admin-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h9l4 4v14H6Z"/><path d="M9 13h6M9 17h6"/></svg></div>
+            <h3 class="admin-card-title">Documentação técnica</h3>
+            <p class="admin-card-desc">Manuais, plantas e registros vinculados a cada modelo, organizados em um só lugar.</p>
           </article>
-
-          <article class="service-card">
-            <div class="service-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-            </div>
-            <h3 class="service-card__title">Suporte especializado</h3>
-            <p class="service-card__desc">Canal direto com nossos especialistas para sanar dúvidas analíticas, atualizar geometrias e customizar relatórios de desempenho.</p>
+          <article class="admin-service-card">
+            <div class="admin-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg></div>
+            <h3 class="admin-card-title">Suporte da equipe</h3>
+            <p class="admin-card-desc">Apoio direto para interpretar dados, atualizar modelos e tirar o máximo proveito da plataforma.</p>
           </article>
         </div>
       </section>
 
-      <section class="features-section" aria-labelledby="features-heading">
-        <div class="section-header">
+      <section style="margin-top:2.6rem" aria-labelledby="features-heading">
+        <div class="admin-section-header">
           <h2 id="features-heading">Recursos da plataforma</h2>
-          <p>Módulos integrados e autônomos</p>
+          <p>Ferramentas disponíveis no painel</p>
         </div>
-
-        <div class="cards-grid">
-          <article class="service-card feature-card">
-            <div class="service-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-            </div>
-            <div>
-              <span class="service-card__badge service-card__badge--feature">Disponível no painel</span>
-            </div>
-            <h3 class="service-card__title">Visualização interativa</h3>
-            <p class="service-card__desc">Explore gêmeos digitais renderizados em tempo real direto no navegador, usando ferramentas de corte, explosão de componentes e filtros avançados.</p>
+        <div class="admin-cards-grid">
+          <article class="admin-service-card admin-feature-card">
+            <div class="admin-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3.2"/><path d="M3 12c1.8-4 5-6 9-6s7.2 2 9 6c-1.8 4-5 6-9 6s-7.2-2-9-6Z"/></svg></div>
+            <span class="admin-badge admin-badge--feature">No painel</span>
+            <h3 class="admin-card-title">Visualização interativa</h3>
+            <p class="admin-card-desc">Explore o modelo 3D no navegador com zoom, rotação e camadas de detalhe.</p>
           </article>
-
-          <article class="service-card feature-card">
-            <div class="service-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            </div>
-            <div>
-              <span class="service-card__badge service-card__badge--feature">Disponível no painel</span>
-            </div>
-            <h3 class="service-card__title">Histórico de versões</h3>
-            <p class="service-card__desc">Acompanhe de forma cronológica as mudanças de layout e retrofit do ativo físico, mantendo total governança e rastreabilidade sobre a engenharia.</p>
+          <article class="admin-service-card admin-feature-card">
+            <div class="admin-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 19V11"/><path d="M12 19V7"/><path d="M16 19v-5"/></svg></div>
+            <span class="admin-badge admin-badge--feature">No painel</span>
+            <h3 class="admin-card-title">Histórico de versões</h3>
+            <p class="admin-card-desc">Acompanhe a evolução do modelo digital conforme o ativo físico muda.</p>
           </article>
-
-          <article class="service-card feature-card">
-            <div class="service-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
-            </div>
-            <div>
-              <span class="service-card__badge service-card__badge--feature">Disponível no painel</span>
-            </div>
-            <h3 class="service-card__title">Catálogo corporativo</h3>
-            <p class="service-card__desc">Centralize e gerencie todas as plantas industriais e ativos globais da organização em uma única árvore hierárquica e otimizada.</p>
+          <article class="admin-service-card admin-feature-card">
+            <div class="admin-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg></div>
+            <span class="admin-badge admin-badge--feature">No painel</span>
+            <h3 class="admin-card-title">Catálogo de modelos</h3>
+            <p class="admin-card-desc">Organize e acesse todos os gêmeos digitais da operação em um único painel.</p>
           </article>
         </div>
       </section>
 
-      <div class="cta-block">
-        <div class="cta-block__text">
+      <div class="admin-cta">
+        <div>
           <h3>Pronto para explorar seus ativos?</h3>
-          <p>Acesse agora o ecossistema completo Hélix para analisar sua operação em tempo real ou fale com nosso time para novos projetos.</p>
+          <p>Acesse os modelos 3D ou consulte a documentação técnica do projeto.</p>
         </div>
-        <div class="cta-block__actions">
-          <a href="#" class="btn btn--secondary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-            Falar com especialistas
-          </a>
-          <a href="#" class="btn btn--primary">
-            Acessar o Painel
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        <div class="admin-cta-actions">
+          <a href="documentos.html" class="admin-btn admin-btn--secondary">Ver documentos</a>
+          <a href="#" id="panelCtaLink" class="admin-btn admin-btn--primary" target="_blank" rel="noopener noreferrer">
+            Ir para modelos 3D
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
       </div>
 
-      <footer class="content__footer">
-        <span>Hélix · Sistema de Gêmeos Digitais</span>
-        <span>Projeto Integrador Acadêmico</span>
-      </footer>
-    </main>
+      <p class="admin-footer-note">Hélix · Painel administrativo · Projeto Integrador Acadêmico</p>
+    </div>
   </div>
 </div>
 
+<script src="auth.js"></script>
+<script src="admin.js"></script>
 <script>
-  const sidebar = document.getElementById('sidebar');
-  const backdrop = document.getElementById('backdrop');
-  const navToggle = document.getElementById('navToggle');
-
-  navToggle?.addEventListener('click', () => {
-    sidebar.classList.toggle('is-open');
-    backdrop.classList.toggle('is-open');
-  });
-  backdrop?.addEventListener('click', () => {
-    sidebar.classList.remove('is-open');
-    backdrop.classList.remove('is-open');
+  initAdminPage('servicos').then(session => {
+    if (!session) return;
+    const link = document.getElementById('panelCtaLink');
+    if (link) link.href = HelixAuth.getPanelUrl(session);
   });
 </script>
-
 </body>
 </html>

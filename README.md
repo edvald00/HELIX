@@ -62,17 +62,17 @@ npm run dev
 
 Acesse: **http://localhost:3000**
 
-### Fluxo de teste
+### Fluxo de teste (admin)
 
-1. Abra o site em `http://localhost:8080`
-2. Vá em **Entrar** (`login.html`)
-3. Use as credenciais de demonstração:
-   - E-mail: `admin@helix.com`
-   - Senha: `admin123`
-4. Você será redirecionado ao painel de serviços (`servicos.html`)
-5. De lá, acesse o portfólio 3D em [helix3d.vercel.app](https://helix3d.vercel.app)
+1. Abra `http://localhost:8080` e vá em **Entrar**
+2. Credenciais de demonstração: `admin@helix.com` / `admin123`
+3. Após login, você acessa o painel admin com sidebar unificada:
+   - **Serviços** → visão geral da plataforma
+   - **Documentos** → repositório técnico (área restrita)
+   - **Visualizador** → prévia do ambiente 3D
+   - **Modelos 3D** → painel completo na Vercel
 
-Para testar o painel Next.js localmente, rode `npm run dev` em `helix-app/` e acesse `http://localhost:3000`.
+A sessão expira em 8 horas. Após 5 tentativas inválidas, o login é bloqueado por 15 minutos.
 
 ## Missão, visão e valores
 
@@ -95,8 +95,8 @@ Projeto desenvolvido pela fábrica de software Hélix. Páginas de equipe, hist�
 
 ## Observações para desenvolvimento
 
-- A autenticação atual é **simulada** (sem backend real)
-- O login redireciona para `servicos.html`, que encaminha ao portfólio 3D na Vercel
-- Documentos saíram do menu público (área administrativa no dashboard)
+- A autenticação usa **sessão assinada** no `sessionStorage` (não expõe senha na URL)
+- Senha armazenada apenas como hash SHA-256 no código (ambiente demo/acadêmico)
+- Páginas admin (`servicos.html`, `documentos.html`, `dashboard.html`) exigem login válido
 - O modelo 3D principal está em `helix-app/public/Duplex.glb`
 - Posições de sensores (luz e ar) são salvas no `localStorage` do navegador
