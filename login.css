@@ -1,12 +1,8 @@
-/* ============ HÉLIX — LOGIN (Sliding / Double Panel Overlay) ============ */
 .auth-body{min-height:100vh;display:flex;flex-direction:column}
-
 .auth-wrap{
   flex:1;display:flex;align-items:center;justify-content:center;
   padding:48px 20px;
 }
-
-/* ---- CARD: agora é o "stage" relativo para o overlay flutuante ---- */
 .auth-card{
   position:relative;
   width:100%;max-width:1040px;min-height:640px;
@@ -18,8 +14,6 @@
     0 30px 80px -30px rgba(0,174,239,.35),
     0 10px 40px -20px rgba(124,58,237,.25);
 }
-
-/* ============ FORM CONTAINERS (lado dos inputs) ============ */
 .form-container{
   position:absolute;top:0;height:100%;width:50%;
   background:#070b13;
@@ -30,16 +24,12 @@
   will-change: transform, opacity;
   backface-visibility:hidden;
 }
-
-/* SIGN IN — começa na ESQUERDA (overlay de marca cobre a direita) */
 .sign-in-container{
   left:0;
   z-index:2;
   opacity:1;
   border-right:1px solid rgba(255,255,255,.04);
 }
-
-/* SIGN UP — mesma posição inicial, oculto atrás */
 .sign-up-container{
   left:0;
   z-index:1;
@@ -47,8 +37,6 @@
   pointer-events:none;
   border-right:1px solid rgba(255,255,255,.04);
 }
-
-/* ===== ESTADO ATIVO (cadastro): forms deslizam para a direita ===== */
 .auth-card.active .sign-in-container{
   transform: translate3d(100%,0,0);
   opacity:0;
@@ -61,12 +49,8 @@
   pointer-events:auto;
   z-index:5;
 }
-
 .auth-form-inner{width:100%;max-width:360px}
 .form-container h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
-
-/* ============ OVERLAY CONTAINER (painel flutuante) ============ */
-/* Começa cobrindo a metade DIREITA do card */
 .overlay-container{
   position:absolute;top:0;left:50%;
   width:50%;height:100%;
@@ -78,7 +62,6 @@
 .auth-card.active .overlay-container{
   transform: translate3d(-100%,0,0);
 }
-
 .overlay{
   position:relative;left:-100%;
   width:200%;height:100%;
@@ -89,8 +72,6 @@
 .auth-card.active .overlay{
   transform: translate3d(50%,0,0);
 }
-
-/* ----- PAINEL DE MARCA (mantém visual idêntico ao original) ----- */
 .auth-side{
   position:relative;padding:40px;
   display:flex;flex-direction:column;justify-content:space-between;
@@ -102,14 +83,10 @@
   transition: transform .6s cubic-bezier(.25,1,.5,1);
   will-change: transform;
 }
-/* painel exibido no modo LOGIN (ocupa o lado DIREITO do overlay duplo) */
 .overlay-right{ right:0; transform: translate3d(0,0,0); }
 .auth-card.active .overlay-right{ transform: translate3d(20%,0,0); }
-
-/* painel exibido no modo CADASTRO (lado esquerdo do overlay duplo) */
 .overlay-left{ left:0; transform: translate3d(-20%,0,0); }
 .auth-card.active .overlay-left{ transform: translate3d(0,0,0); }
-
 .auth-glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;transform:translateZ(0);will-change:transform}
 .auth-glow-1{
   top:-120px;left:-120px;width:420px;height:420px;
@@ -121,7 +98,6 @@
 }
 .auth-brand,.auth-pitch,.auth-foot{position:relative;z-index:1}
 .auth-brand{margin-bottom:8px}
-
 .auth-pitch{margin-top:24px}
 .auth-features{
   list-style:none;margin-top:32px;display:flex;flex-direction:column;gap:10px;
@@ -138,7 +114,6 @@
   flex-shrink:0;
 }
 .auth-foot{font-size:12px;margin-top:24px}
-
 .btn-overlay{
   margin-top:24px;align-self:flex-start;
   background:rgba(255,255,255,.05);
@@ -152,8 +127,6 @@
   border-color:rgba(0,174,239,.5);
   transform: translateY(-1px);
 }
-
-/* OAuth */
 .oauth-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
 .oauth-btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -163,16 +136,12 @@
   transition: background-color .2s ease-in-out, border-color .2s ease-in-out, transform .2s ease-in-out;
 }
 .oauth-btn:hover{background:rgba(255,255,255,.06);border-color:rgba(0,174,239,.4)}
-
-/* Divider */
 .divider{
   display:flex;align-items:center;gap:12px;
   margin:22px 0;color:var(--muted);font-size:11.5px;
   text-transform:uppercase;letter-spacing:.12em;
 }
 .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border)}
-
-/* Form */
 .auth-fields{display:flex;flex-direction:column;gap:14px}
 .field{display:flex;flex-direction:column;gap:6px}
 .field > span{font-size:12.5px;font-weight:600;color:#CBD5E1;letter-spacing:.01em}
@@ -190,7 +159,6 @@
   box-shadow:0 0 0 3px rgba(0,174,239,.18);
   background:rgba(255,255,255,.06);
 }
-
 .pwd-wrap{position:relative;display:block}
 .pwd-wrap input{padding-right:42px}
 .pwd-toggle{
@@ -199,22 +167,15 @@
   color:var(--muted);border-radius:8px;
 }
 .pwd-toggle:hover{color:#fff;background:rgba(255,255,255,.05)}
-
 .check{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);user-select:none;cursor:pointer}
 .check input{accent-color:var(--brand);width:14px;height:14px}
-
 .link-brand{color:var(--brand-3);font-size:12.5px;font-weight:600;transition:color .2s}
 .link-brand:hover{color:var(--brand)}
-
 .btn-block{width:100%;justify-content:center;margin-top:6px;padding:12px 18px;font-size:14.5px}
-
 .auth-alt{
   margin-top:22px;text-align:center;font-size:13px;color:var(--muted);
 }
-
 .mobile-only{display:none}
-
-/* ============ RESPONSIVO ============ */
 @media (max-width:880px){
   .auth-card{min-height:560px;max-width:480px;}
   .overlay-container{display:none;}
@@ -230,7 +191,6 @@
   .mobile-only{display:block;margin-top:24px;text-align:center;}
   .oauth-row{grid-template-columns:1fr}
 }
-
 @media (prefers-reduced-motion: reduce){
   .form-container,.overlay-container,.overlay,.overlay-panel{
     transition:none !important;

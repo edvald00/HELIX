@@ -18,7 +18,6 @@
 <main class="auth-wrap">
   <div class="auth-card reveal in" id="authCard">
 
-    <!-- ============ FORM: SIGN IN ============ -->
     <section class="form-container sign-in-container">
       <div class="auth-form-inner">
         <h2>Entrar na sua conta</h2>
@@ -74,7 +73,6 @@
       </div>
     </section>
 
-    <!-- ============ FORM: SIGN UP ============ -->
     <section class="form-container sign-up-container">
       <div class="auth-form-inner">
         <h2>Criar sua conta</h2>
@@ -123,11 +121,9 @@
       </div>
     </section>
 
-    <!-- ============ OVERLAY (BRAND PANEL FLUTUANTE) ============ -->
     <div class="overlay-container">
       <div class="overlay">
 
-        <!-- Painel exibido no modo LOGIN (CTA para ir ao cadastro) -->
         <aside class="auth-side overlay-panel overlay-right">
           <div class="auth-glow auth-glow-1"></div>
           <div class="auth-glow auth-glow-2"></div>
@@ -172,7 +168,6 @@
           <p class="auth-foot muted">© <span id="year"></span> Hélix · Digital Twin AI</p>
         </aside>
 
-        <!-- Painel exibido no modo CADASTRO (CTA para voltar ao login) -->
         <aside class="auth-side overlay-panel overlay-left">
           <div class="auth-glow auth-glow-1"></div>
           <div class="auth-glow auth-glow-2"></div>
@@ -225,23 +220,22 @@
 
 <script src="script.js"></script>
 <script>
-  // ===== SLIDING / DOUBLE PANEL TOGGLE (inline, sem dependência de módulos) =====
-  (function(){
-    var card = document.getElementById('authCard');
-    if(!card) return;
-    function goRegister(e){ if(e) e.preventDefault(); card.classList.add('active'); }
-    function goLogin(e){ if(e) e.preventDefault(); card.classList.remove('active'); }
-    ['btnGoToRegister','btnGoToRegisterMobile'].forEach(function(id){
-      var el = document.getElementById(id);
-      if(el) el.addEventListener('click', goRegister);
+  (function () {
+    const card = document.getElementById('authCard');
+    if (!card) return;
+    const goRegister = (e) => { e?.preventDefault(); card.classList.add('active'); };
+    const goLogin = (e) => { e?.preventDefault(); card.classList.remove('active'); };
+    ['btnGoToRegister', 'btnGoToRegisterMobile'].forEach((id) => {
+      document.getElementById(id)?.addEventListener('click', goRegister);
     });
-    ['btnGoToLogin','btnGoToLoginMobile'].forEach(function(id){
-      var el = document.getElementById(id);
-      if(el) el.addEventListener('click', goLogin);
+    ['btnGoToLogin', 'btnGoToLoginMobile'].forEach((id) => {
+      document.getElementById(id)?.addEventListener('click', goLogin);
     });
-    var y = new Date().getFullYear();
-    var yEl = document.getElementById('year'); if(yEl) yEl.textContent = y;
-    var yAlt = document.getElementById('yearAlt'); if(yAlt) yAlt.textContent = y;
+    const year = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    const yearAlt = document.getElementById('yearAlt');
+    if (yearEl) yearEl.textContent = year;
+    if (yearAlt) yearAlt.textContent = year;
   })();
 </script>
 <script src="login.js"></script>

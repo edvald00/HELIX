@@ -1,4 +1,3 @@
-/* ============ HÉLIX — Digital Twin AI ============ */
 :root{
   --bg:#05070d;
   --bg-2:#0B1120;
@@ -28,8 +27,6 @@ body{
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;background:none;border:none;color:inherit}
-
-/* animated background grid */
 body::before{
   content:"";position:fixed;inset:0;z-index:-2;
   background:
@@ -45,8 +42,6 @@ body::after{
   background-size:60px 60px;
   mask-image: radial-gradient(ellipse at center, #000 40%, transparent 80%);
 }
-
-/* ============ TOP BAR + HEADER ============ */
 .topbar{
   background:linear-gradient(90deg,var(--brand),#7C3AED);
   color:#fff;text-align:center;padding:6px 12px;font-size:12px;font-weight:500;letter-spacing:.04em;
@@ -81,11 +76,9 @@ body::after{
 .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;box-shadow:0 8px 24px -8px rgba(0,174,239,.6)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px -8px rgba(0,174,239,.7)}
 .hamburger{display:none;width:40px;height:40px;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:10px}
-
-/* mobile */
 @media (max-width:960px){
   .menu{display:none}
-  .actions .btn-primary{display:none} /* Esconde "Nossa equipe" no cabeçalho */
+  .actions .btn-primary{display:none} 
   .hamburger{display:flex}
   .menu.open{
     display:flex;flex-direction:column;align-items:flex-start;gap:16px;
@@ -93,8 +86,6 @@ body::after{
     background:rgba(11,17,32,.96);border-bottom:1px solid var(--border);
   }
 }
-
-/* ============ LAYOUT HELPERS ============ */
 .container{max-width:var(--max);margin:0 auto;padding:0 24px}
 .section{padding:96px 24px}
 @media (max-width:768px){.section{padding:56px 20px}}
@@ -112,8 +103,6 @@ h3{font-size:22px}
 }
 .muted{color:var(--muted)}
 .lead{color:var(--muted);font-size:18px;max-width:680px}
-
-/* ============ HERO ============ */
 .hero{
   position:relative;min-height:calc(100vh - var(--header-h) - 30px);
   display:flex;align-items:center;padding:80px 24px 60px;overflow:hidden;
@@ -130,8 +119,6 @@ h3{font-size:22px}
 @media (max-width:900px){.kpi{justify-content:center}}
 .kpi .item .num{font-size:34px;font-weight:800;color:#fff;letter-spacing:-.02em}
 .kpi .item .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
-
-/* digital twin orb */
 .twin{
   position:relative;width:100%;aspect-ratio:1/1;max-width:520px;margin:0 auto;
 }
@@ -157,15 +144,12 @@ h3{font-size:22px}
 .twin .dot.d2{top:50%;right:4%;transform:translateY(-50%);background:var(--brand-2);box-shadow:0 0 16px var(--brand-2)}
 .twin .dot.d3{bottom:6%;left:50%;transform:translateX(-50%);background:var(--brand);box-shadow:0 0 16px var(--brand)}
 .twin .dot.d4{top:50%;left:4%;transform:translateY(-50%)}
-
-/* ============ CARDS ============ */
 .grid{display:grid;gap:24px}
 .grid-2{grid-template-columns:repeat(2,1fr)}
 .grid-3{grid-template-columns:repeat(3,1fr)}
 .grid-4{grid-template-columns:repeat(4,1fr)}
 @media (max-width:900px){.grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
-
 .card{
   background:linear-gradient(180deg,rgba(15,23,42,.9),rgba(15,23,42,.6));
   border:1px solid var(--border);border-radius:var(--radius);padding:28px;
@@ -187,8 +171,6 @@ h3{font-size:22px}
 }
 .card h3{margin-bottom:8px;color:#fff}
 .card p{color:var(--muted);font-size:14.5px}
-
-/* ============ TIMELINE ============ */
 .timeline{position:relative;padding:30px 0}
 .timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,var(--brand),var(--brand-2),transparent);transform:translateX(-50%)}
 .tl-item{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;margin:30px 0}
@@ -202,8 +184,6 @@ h3{font-size:22px}
   .tl-item .dot{grid-column:1;justify-self:center}
   .tl-item .card{grid-column:2 !important}
 }
-
-/* ============ MEMBER ============ */
 .member .avatar{
   width:64px;height:64px;border-radius:50%;
   background:linear-gradient(135deg,var(--brand),var(--brand-2));
@@ -214,8 +194,6 @@ h3{font-size:22px}
 .member .role{color:var(--brand);font-size:13px;font-weight:600}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
 .tag{font-size:11px;padding:4px 10px;border-radius:999px;background:var(--border);color:var(--muted)}
-
-/* ============ GALLERY ============ */
 .thumb{
   aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;
   background:linear-gradient(135deg,#1E293B,#0f172a);
@@ -233,8 +211,6 @@ h3{font-size:22px}
 .thumb:hover svg{opacity:.7;transform:scale(1.1)}
 .thumb .meta{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.85));display:flex;align-items:center;gap:8px; z-index: 1;}
 .thumb .meta .pill{font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(0,174,239,.2);color:var(--brand);border:1px solid rgba(0,174,239,.4)}
-
-/* ============ DOCS ============ */
 .search{position:relative;flex:1}
 .search input{
   width:100%;background:var(--card);border:1px solid var(--border);
@@ -252,8 +228,6 @@ h3{font-size:22px}
 .doc-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
 .doc-row .info{display:flex;align-items:center;gap:14px;flex:1;min-width:0}
 .doc-row .info .ic{width:42px;height:42px;border-radius:10px;background:rgba(0,174,239,.12);border:1px solid rgba(0,174,239,.3);display:flex;align-items:center;justify-content:center;color:var(--brand);flex-shrink:0}
-
-/* ============ LIGHTBOX ============ */
 .lightbox{
   position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
   z-index:100;display:none;align-items:center;justify-content:center;padding:30px;
@@ -262,8 +236,6 @@ h3{font-size:22px}
 .lightbox.open{display:flex}
 .lightbox .box{max-width:900px;width:100%;aspect-ratio:4/3;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center}
 .lightbox .close{position:absolute;top:24px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center}
-
-/* ============ FOOTER ============ */
 .footer{border-top:1px solid var(--border);margin-top:60px;padding:80px 24px 40px;color:var(--muted);font-size:14px;background:var(--bg-2)}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:var(--max);margin:0 auto}
 @media (max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:30px}}
@@ -276,14 +248,10 @@ h3{font-size:22px}
 .footer-col a:hover{color:var(--brand);transform:translateX(4px)}
 .footer-bottom{max-width:var(--max);margin:60px auto 0;padding-top:24px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
 .footer-bottom b{color:#fff}
-
-/* ============ EFEITOS EXTRAS ============ */
 .noise-overlay{position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");opacity:0.03;transform:translateZ(0);will-change:transform}
 .btn-shimmer{position:relative;overflow:hidden}
 .btn-shimmer::after{content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transform:skewX(-20deg);animation:shimmer 3.5s infinite}
 @keyframes shimmer{0%{left:-100%}20%{left:200%}100%{left:200%}}
-
-/* ============ ANIMATIONS ============ */
 @keyframes spinSlow{to{transform:rotate(360deg)}}
 @keyframes pulse{
   0%,100%{transform:scale(1);opacity:.95}
@@ -292,8 +260,6 @@ h3{font-size:22px}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .float{animation:floaty 4s ease-in-out infinite}
-
-/* reveal on scroll */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease), transform .8s var(--ease)}
 .reveal.in{opacity:1;transform:translateY(0)}
 .reveal.delay-1{transition-delay:.08s}
@@ -302,14 +268,9 @@ h3{font-size:22px}
 .reveal.delay-4{transition-delay:.32s}
 .reveal.delay-5{transition-delay:.40s}
 .reveal.delay-6{transition-delay:.48s}
-
-/* scroll cue */
 .scroll-cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:8px;animation:floaty 2.5s ease-in-out infinite}
 .scroll-cue .mouse-wheel{animation:scrollWheel 1.5s infinite}
 @keyframes scrollWheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(6px);opacity:0}}
-
-
-/* ============ DIGITAL TWIN WINDOW ============ */
 .showcase-window{
   width:min(560px,100%);
   border-radius:28px;
@@ -355,9 +316,6 @@ h3{font-size:22px}
 @keyframes realFade{0%,42%{opacity:1;transform:scale(1)}50%,100%{opacity:0;transform:scale(.96)}}
 @keyframes digitalFade{0%,42%{opacity:0;transform:scale(1.04)}50%,100%{opacity:1;transform:scale(1)}}
 @keyframes scanMove{0%{top:-20%}50%{top:50%}100%{top:110%}}
-
-
-/* ============ TEAM SHOWCASE ============ */
 .team-showcase{
   padding-top:20px;
 }
@@ -443,34 +401,24 @@ h3{font-size:22px}
   object-fit: cover;
   border-radius: 50%;
 }
-
 @media (max-width: 768px) {
-  /* Garante que a área de ações (botões) não suma totalmente */
   .header .actions {
     display: flex; 
     gap: 8px;
     margin-right: 10px;
   }
-
-  /* Se o botão de login sumiu, pode ser que ele esteja com "display: none" no mobile. 
-     Vamos forçar ele a aparecer, mas talvez diminuir o texto para caber. */
   .btn-login {
     display: flex !important;
     padding: 8px 12px;
     font-size: 13px;
   }
-
-  /* Oculta apenas o texto "Entrar" em telas MUITO pequenas se necessário, 
-     mantendo apenas o ícone, para não quebrar o layout */
   @media (max-width: 480px) {
     .btn-login {
        padding: 8px;
     }
-    .btn-login span { /* Caso o texto esteja dentro de um span */
+    .btn-login span { 
        display: none;
     }
-    /* Ou você pode esconder o botão "Nossa Equipe" no mobile 
-       e deixar ele apenas dentro do menu hambúrguer para salvar espaço */
     .header .actions .btn-primary {
        display: none; 
     }

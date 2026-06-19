@@ -3,7 +3,7 @@
 @theme inline {
   --color-background: #0A0A0F;
   --color-foreground: #FFFFFF;
-  --color-surface: #1E1E24; /* Adjusted for realistic dark mode surfaces, but we can use white with opacity */
+  --color-surface: #1E1E24;
   --color-surface-pure: #FFFFFF;
   --color-primary: #00C8FF;
   --color-secondary: #6E6E73;
