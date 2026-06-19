@@ -1,102 +1,182 @@
 # Hélix — Digital Twin AI
 
-Site institucional e plataforma de gêmeo digital da fábrica **Hélix**, desenvolvida para conectar dados físicos e digitais em réplicas inteligentes de ambientes reais.
+> Plataforma de gêmeo digital que conecta o mundo físico ao digital — com visualização 3D, painel administrativo e site institucional completo.
+
+**Projeto Integrador Acadêmico · Fábrica de Software Hélix**
 
 
-## O que é o Hélix
+---
 
-O Hélix é uma plataforma de **Digital Twin com IA** que espelha operações físicas em modelos virtuais atualizados em tempo real. A proposta é unir sensoriamento (IoT, APIs, ERP), modelos preditivos e automações para simular, prever e otimizar processos antes que ocorram no mundo real.
+## O projeto
 
-### Casos de uso previstos
+O **Hélix** é uma plataforma de **Digital Twin com IA** que cria réplicas inteligentes de ambientes reais.
 
-- Indústria 4.0 e monitoramento operacional
-- Manutenção preditiva
-- Eficiência energética
-- Cidades inteligentes e gestão de ativos
+**Problema:** operações físicas com decisões baseadas em dados desatualizados.
 
-### Pilares da solução
+**Solução:** gêmeo virtual em tempo real para simular, prever e otimizar processos.
 
-| Pilar | Descrição |
-|-------|-----------|
-| Sensoriamento | Telemetria de IoT, APIs e ERP em um único plano de dados |
-| Inteligência | Modelos preditivos e de simulação adaptados ao contexto |
-| Ação | Recomendações e automações disparadas em tempo real |
+**Três pilares:**
 
-## Estrutura do projeto
+| Pilar | Função |
+|-------|--------|
+| Sensoriamento | IoT, APIs e ERP unificados |
+| Inteligência | Modelos preditivos e simulação |
+| Ação | Automações e recomendações em tempo real |
+
+---
+
+## Site institucional
+
+Interface pública com identidade visual própria — paleta azul/roxo, animações e layout responsivo.
+
+**Páginas**
+
+- **Home** — hero com animação físico ↔ digital, pilares e casos de uso
+- **História** — linha do tempo do projeto
+- **Equipe** — 4 integrantes e papéis
+- **Showcase** — fotos reais com lightbox
+- **Missão e Valores** — propósito da fábrica
+
+**Arquivos principais**
+
+- `index.html` — landing page
+- `styles.css` — design system e animações
+- `script.js` — scroll reveal, lightbox, filtros
+
+---
+
+## Autenticação e painel admin
+
+Área restrita com login protegido e navegação unificada por sidebar.
+
+**Segurança (`auth.js`)**
+
+- Senha verificada via hash SHA-256
+- Sessão assinada no navegador (TTL 8h)
+- Bloqueio após 5 tentativas inválidas
+- Rotas admin protegidas — redireciona para login
+
+**Painel admin**
+
+| Página | Função |
+|--------|--------|
+| `servicos.html` | Visão geral de serviços e recursos |
+| `documentos.html` | Repositório técnico com download |
+| `dashboard.html` | Prévia do visualizador 3D |
+
+**Layout compartilhado:** `admin.js` + `admin.css`
+
+**Demo:** `admin@helix.com` · `admin123`
+
+---
+
+## Gêmeo digital 3D
+
+Painel Next.js com renderização em tempo real via Three.js.
+
+**Hub de ambientes** — Suíte Presidencial · Quarto Deluxe · Lobby
+
+**Controles interativos**
+
+- Luz e ar-condicionado refletem no modelo 3D
+- Telemetria simulada (temperatura, consumo kW)
+- Posicionamento de sensores no ambiente (CMS espacial)
+
+**Arquivos principais**
+
+| Arquivo | Função |
+|---------|--------|
+| `helix-app/src/app/page.tsx` | Hub de seleção de ambientes |
+| `helix-app/src/app/room/[id]/page.tsx` | Dashboard com controles |
+| `helix-app/src/components/DigitalTwin.tsx` | Cena 3D completa |
+| `helix-app/public/Duplex.glb` | Modelo do ambiente |
+
+**Componentes 3D:** lustre procedural · ar-condicionado · partículas de frio · marcadores AR
+
+---
+
+## Fluxo da aplicação
+
+```
+Site público
+    ↓
+Login (auth.js)
+    ↓
+Painel Admin — Serviços · Documentos · Visualizador
+    ↓
+Modelos 3D (helix3d.vercel.app)
+    ↓
+Gêmeo Digital interativo
+```
+
+---
+
+## Estrutura do repositório
 
 ```
 HELIX/
-├── index.html, historia.html, integrantes.html ...   # Site institucional (HTML/CSS/JS)
-├── login.html                                      # Autenticação (simulada)
-├── servicos.html                                   # Painel de serviços (pós-login)
-├── styles.css, script.js                           # Estilos e interações do site
-├── helix-app/                                      # Aplicação Next.js (painel 3D)
-│   └── src/
-│       ├── app/page.tsx                            # Hub de seleção de ambientes
-│       ├── app/room/[id]/page.tsx                  # Dashboard do gêmeo digital
-│       └── components/DigitalTwin.tsx              # Visualização 3D (Three.js)
-├── duplex/                                         # Modelo 3D do ambiente
-├── docume/                                         # Documentos do projeto
-└── imagens/                                        # Assets visuais
+├── index.html · historia.html · integrantes.html · fotos.html
+├── login.html · servicos.html · documentos.html · dashboard.html
+├── auth.js · admin.js · admin.css · styles.css · script.js
+├── helix-app/
+│   ├── src/app/page.tsx
+│   ├── src/app/room/[id]/page.tsx
+│   ├── src/components/DigitalTwin.tsx
+│   └── public/Duplex.glb
+├── imagens/
+└── documentos/ (PDF, DOCX)
 ```
 
-## Como executar localmente
-
-### 1. Site institucional
-
-Na raiz do repositório:
-
-```bash
-npx serve -l 8080
-```
-
-Acesse: **http://localhost:8080**
-
-### 2. Painel 3D (Next.js)
-
-```bash
-cd helix-app
-npm install
-npm run dev
-```
-
-Acesse: **http://localhost:3000**
-
-### Fluxo de teste (admin)
-
-1. Abra `http://localhost:8080` e vá em **Entrar**
-2. Credenciais de demonstração: `admin@helix.com` / `admin123`
-3. Após login, você acessa o painel admin com sidebar unificada:
-   - **Serviços** → visão geral da plataforma
-   - **Documentos** → repositório técnico (área restrita)
-   - **Visualizador** → prévia do ambiente 3D
-   - **Modelos 3D** → painel completo na Vercel
-
-A sessão expira em 8 horas. Após 5 tentativas inválidas, o login é bloqueado por 15 minutos.
-
-## Missão, visão e valores
-
-**Missão:** refletir o mundo físico em inteligência operacional acessível, em tempo real.
-
-**Visão:** tornar Digital Twin AI um padrão para operações inteligentes em qualquer escala.
-
-**Valores:** ética em IA, engenharia rigorosa e colaboração.
+---
 
 ## Tecnologias
 
-- **Site:** HTML5, CSS3, JavaScript
-- **Painel 3D:** Next.js 16, React 19, TypeScript
-- **Renderização 3D:** Three.js, React Three Fiber, Drei
-- **Deploy de referência:** [helix-dt.vercel.app](https://helix-dt.vercel.app)
+| Camada | Stack |
+|--------|-------|
+| Site | HTML5 · CSS3 · JavaScript |
+| Admin | auth.js · sessionStorage |
+| Painel 3D | Next.js 16 · React 19 · TypeScript |
+| Renderização | Three.js · React Three Fiber · Drei |
+| Deploy | Vercel · GitHub Pages |
+
+---
 
 ## Equipe
 
-Projeto desenvolvido pela fábrica de software Hélix. Páginas de equipe, história, showcase e documentos estão disponíveis na navegação do site institucional.
+| Integrante | Papel |
+|------------|-------|
+| Edvaldo Silva | Analista de Requisitos / PO |
+| Pabllo Hyan | Engenheiro de Software / IA |
+| Flávio Barros | Scrum Master |
+| Gabriel Manoel | Engenheiro de Requisitos / GP |
 
-## Observações para desenvolvimento
+---
 
-- A autenticação usa **sessão assinada** no `sessionStorage` (não expõe senha na URL)
-- Senha armazenada apenas como hash SHA-256 no código (ambiente demo/acadêmico)
-- Páginas admin (`servicos.html`, `documentos.html`, `dashboard.html`) exigem login válido
-- O modelo 3D principal está em `helix-app/public/Duplex.glb`
-- Posições de sensores (luz e ar) são salvas no `localStorage` do navegador
+## Documentos do projeto
+
+- Documento de Requisitos Hélix (PDF)
+- Levantamento de Requisitos v1 (PDF)
+- Revisão de Requisitos — 02/06/2026 (DOCX)
+- Ata Sprint Planning — Sprint 1 (PDF)
+
+---
+
+## Executar localmente
+
+```bash
+# Site + painel admin
+npx serve -l 8080
+
+# Painel 3D
+cd helix-app && npm install && npm run dev
+```
+
+---
+
+## Missão · Visão · Valores
+
+**Missão** — refletir o mundo físico em inteligência operacional acessível, em tempo real.
+
+**Visão** — tornar Digital Twin AI um padrão para operações inteligentes.
+
+**Valores** — ética em IA · engenharia rigorosa · colaboração.
