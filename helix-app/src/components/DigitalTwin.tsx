@@ -233,13 +233,16 @@ export default function DigitalTwin({ lightOn, acOn }: DigitalTwinProps) {
   useEffect(() => {
     const savedLight = localStorage.getItem("helix_light_pos");
     const savedAc = localStorage.getItem("helix_ac_pos");
-    if (savedLight) setLightPos(JSON.parse(savedLight));
+    if (savedLight) {
+      const parsed = JSON.parse(savedLight) as Vec3;
+      setLightPos(parsed);
+    }
     if (savedAc) {
       const parsed = JSON.parse(savedAc);
-      if (Array.isArray(parsed)) {
-        setAcData({ point: parsed, normal: [0, 0, 1] });
+      if (Array.isArray(parsed) && parsed.length >= 3) {
+        setAcData({ point: [parsed[0], parsed[1], parsed[2]], normal: [0, 0, 1] });
       } else {
-        setAcData(parsed);
+        setAcData(parsed as AcPlacement);
       }
     }
   }, []);
